@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="css/homepage.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+
+  <script>
+    var div = document.querySelector('div');
+    var a =location.search.substr(1);
+    var arr = a.split('=');
+    div.innerHTML =arr[1];
+</script>
+
+  <body>
+  <div class="header">
+    <h2 class="logo">GCM|FUNCTION</h2>
+    <input type="checkbox" id="chk">
+    <label for="chk" class="show-menu-btn">
+      <i class="fas fa-ellipsis-h"></i>
+    </label>
+
+    <ul class="menu">
+      <a href="#" onclick="window.open('Assessment.html','_self')">Satisfaction</a>
+      <a href="#" onclick="window.open('login.html','_self')">Login</a>
+      <a href="#" onclick="window.open('selfpage.html','_self')">Information</a>
+      <label for="chk" class="hide-menu-btn">
+        <i class="fas fa-times"></i>
+      </label>
+    </ul>
+  </div>
+    <div class="services-section">
+      <div class="inner-width">
+        <h1 class="section-title">Our Services</h1>
+        <div class="border"></div>
+        <div class="services-container">
+
+          <div class="service-box">
+            <div class="service-icon"><a herf="#" onclick="window.open('step transform.html','_self')">steps</a>
+              <i class="fas fa-paint-brush"></i>
+            </div>
+            <div class="service-title"><a herf="#" onclick="window.open('step transform.html','_self')">steps transform to credits</a> </div>
+            
+
+          </div>
+
+          <div class="service-box">
+            <div class="service-icon"><a herf="#" onclick="window.open('Credits.html','_self')">Credits</a>
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="service-title"><a herf="#" onclick="window.open('Credits.html','_self')">Credits transform to money</a></div>
+          </div>
+
+          <div class="service-box">
+            <div class="service-icon"><a herf="#" onclick="window.open('Steps synchronization.html','_self')">Syn</a>
+              <i class="fas fa-brush"></i>
+            </div>
+            <div class="service-title"><a herf="#" onclick="window.open('Steps synchronization.html','_self')">Steps synchronization</a></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

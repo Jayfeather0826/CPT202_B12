@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>login page</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/signuplogin.css">
+      <script src="./jquery-3.5.1.min.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+  </head>
+
+  
+  <script type="text/javascript">
+	//The onblur loses focus event, and the JavaScript code is executed when the user leaves the input box:
+	//Function 1: Verify mobile phone number
+  	function validate_username(username){
+  	console.log(username)
+  		//Variables that define regular expressions: mobile phone number regular
+  		var TelReg=/^([0-9]){11}$/;
+  		//console.log(username);
+  		if(username !="" && username.search(TelReg) != -1)
+  		{
+  			document.getElementById("test_user").innerHTML = "<font color='green' size='3px'>√</font>";
+  		}else{
+  			document.getElementById("test_user").innerHTML = "<font color='pink' size='3px'>format error</font>";
+  		}
+  	}
+  
+ 	//Function 2: Verify that the password meets the requirements: match a 6-digit password, consisting of numbers and letters:
+  	function validate_password(password){
+  		//^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6-10}$
+		//Test password: 12345y
+  		var passwordReg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6}$/;
+  		if(password != "" && password.search(passwordReg) != -1)
+  		{
+  			document.getElementById("test_pw").innerHTML = "<font color='green' size='3px'>√</font>";
+  		}else{
+  			document.getElementById("test_pw").innerHTML = "<font color='pink' size='3px'>format error</font>";
+  			alert("6-digit password consisting of letters and numbers ");
+  		}
+  	}
+  	
+  	
+	//Function 4: Verify that the form has been filled out
+  	function validate_form(){
+  		var username = document.getElementById("username").value;
+  		var password = document.getElementById("password").value;
+  		//console.log("The form is filled out correctly and can be submitted normally！");
+  	
+  		//These three, if any of them have problems, return false
+  		//18128@qq.com		12345y
+  		var TelReg=/^(?![0-9]+$){11}/;
+  		var passwordReg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6}$/;
+  		
+  		if(username != "" && TelReg.test(username)){
+  			if(password !="" && passwordReg.test(password)){
+  				if(password2==password){
+  					alert("information matched, can submit");
+  					console.log("information matched, can submit");
+  					return true;
+  				}else{
+  					alert("passwords mismath, please try again");
+  					console.log("passwords mismath, please try again！");
+  					return false;
+  				}
+  			}else{
+  				alert("password formal error, please try again");
+  				console.log("password formal error, please tty again");
+  				return false;
+  			}
+  		}else{
+  			alert("account format error, please try again");
+  			console.log("account format error, please try again");
+  			return false;
+  		}
+          
+  	}
+
+
+  	function dl(){
+        var phone = $("#phone").val();
+        var password =$("#password").val();
+        let data={"userTel":phone,"userPassword":password}
+        $.ajax({
+            url:"/user/login",
+            type:"POST",
+            data:data,
+            dataType:'json',
+            success:function(res){
+                if (res.code==200){
+                    localStorage.setItem("userInfo",JSON.stringify(res.data))
+                    window.open('homepage.html','_self')
+                }else if (res.code==400){
+                    alert(res.msg)
+                }
+            }
+        } )
+    }
+  </script>
+  
+
+ <body>
+
+  <div class="form-wrapper">
+    <div class="header">
+        login
+    </div>
+    <div class="input-wrapper">
+        <div class="border-wrapper">
+            <input type="text" id="phone" placeholder="phonenumber" class="border-item" onblur="validate_phone(this.value)">
+            <div id="test_p"></div>
+        </div>
+        <div class="border-wrapper">
+            <input type="password" id="password" placeholder="password" class="border-item">
+			 <div id="test_pw"></div>
+		</div>
+    </div>
+    <div class="action">
+        <div class="btn" onclick="dl()">login</div>
+    </div>
+	<div class="msg"> 
+		Don't have an account? <a herf="#" onclick="window.open('sign up.html','_self')">Sign up</a> 
+		</div>
+  </div>
+</body>
+</html>

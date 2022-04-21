@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>satisfaction</title>
+		<script src="./jquery-3.5.1.min.js"></script>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: sans-serif;
+				background: #34495e;
+			}
+			.box {
+				width: 300px;
+				padding: 40px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: #191919;
+				text-align: center;
+			}
+			.box h1 {
+				color: white;
+				text-transform: uppercase;
+				font-weight: 500;
+			}
+			.submit {
+				border: 0;
+				background: none;
+				margin: 20px auto;
+				margin-top: 0;
+				display: inline-block;
+				text-align: center;
+				border: 2px solid #3498db;
+				padding: 10px 40px;
+				outline: none;
+				color: white;
+				border-radius: 24px;
+				transition: 0.25s;
+				cursor: pointer;
+				text-decoration: none;
+				font-size: 12px;
+			}
+			.submit:hover {
+				background: #2ecc71;
+				border-color: #2ecc71;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="box">
+			<div class="btn"><a href="#" onclick="window.open('homepage.html','_self')">Back to homepage</a>
+			<h1>Degree of satisfaction</h1>
+			<a class="submit" onclick="mm('satisfy')" href="        ">Satisfaction</a>
+			<a class="submit" onclick="mm('dissatisfied')" href="        ">Dissatisfaction</a>
+		</div>
+	</body>
+</html>
+<script>
+	function mm(score){
+		let user = localStorage.getItem("userInfo");
+		if (user!=null){
+			user=JSON.parse(user);
+			$("#telephone").val(user.userTel);
+			let data={"context":score,"userTel":user.userTel}
+			//submit data
+			$.ajax({
+				url:"/user/submitScore",
+				type:"POST",
+				data:data,
+				dataType:'json',
+				success:function(res){
+					//My credits
+					alert(res.msg)
+				}
+			})
+		}else{
+			alert("Please login and try again！")
+		}
+	}
+</script>

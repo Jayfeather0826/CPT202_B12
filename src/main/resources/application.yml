@@ -1,0 +1,26 @@
+
+#Mysql连接信息
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: hpfAwMZH
+    url: jdbc:mysql://127.0.0.1:3306/gcm?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+#    url: jdbc:mysql://192.168.31.244:3306/GCM?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
+#  thymeleaf:
+#    prefix: classpath:/templates/
+#    suffix: .html
+#    chech-template-location: true
+#    cache: false
+#    mode: HTML5
+#    encoding: utf-8
+#    servlet:
+#      content-type: text/html
+
+  jpa:
+    show-sql: true
+    application:
+      name: gcm
+
+server:
+  port: 9981

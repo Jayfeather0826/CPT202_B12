@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>sign up page</title>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="css/signuplogin.css">
+	  <script src="./jquery-3.5.1.min.js"></script>
+  </head>
+
+  <script type="text/javascript">
+
+
+  	function zc(){
+  		var username = $("#username").val();
+  		var password =$("#password").val() ;
+  		var password2 =$("#password2").val();
+  		var phonenumber =$("#phonenumber").val();
+
+  		if (phonenumber==''){
+  			alert("Mobile number cannot be empty！")
+			return;
+		}
+
+  		if (username==''){
+  			alert("username cannot be empty！")
+			return;
+		}
+		if (password==''){
+			alert("password can not be blank！")
+			return;
+		}
+
+  		if (password!=password2){
+  			alert("The two passwords do not match！")
+			return;
+		}
+  		let data={"userName":username,"userPassword":password,"userTel":phonenumber}
+  		$.ajax({
+　　				url:"/user/register",
+　　				type:"POST",
+			    data:data,
+			    dataType:'json',
+　　				success:function(res){　　
+					if (res.code==200){
+						alert("registration success！")
+						window.open('login.html','_self')
+					}else if (res.code==400){
+						alert("registration failed！")
+					}
+				}
+　　			} )
+}
+  </script>
+  
+
+ <body>
+  	
+	<div class="form-wrapper">
+		<div class="header">
+			sign up
+		</div>
+		<div class="input-wrapper">
+			<div class="border-wrapper">
+				<input type="text" id="phonenumber" placeholder="phonenumber" class="border-item">
+				<div id="test_p"></div>
+			</div>
+			<div class="border-wrapper">
+				<input type="text" id="username" placeholder="username" class="border-item"  >
+			    <div id="test_user"></div>
+			</div>
+			<div class="border-wrapper">
+				<input type="password" id="password" placeholder="password" class="border-item"  >
+			    <div id="test_pw"></div>
+			</div>
+			<div class="border-wrapper">
+				<input type="password" id="password2" placeholder="password" class="border-item" >
+			    <div id="is_test_pw"></div>
+			</div>
+		</div>
+		<div class="action">
+			<div class="btn" onclick="zc()">sign up</div>
+		</div>
+		<div class="msg">
+			Already have an account？<a herf="#" onclick="window.open('login.html','_self')">login</a>
+		</div>
+	</div>
+</body>
+
+</html>

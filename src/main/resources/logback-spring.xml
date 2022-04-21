@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--在控制台中打印log信息-->
+    <appender name="consoleLog" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+             <pattern>
+                 %d - %msg%n <!--时间+消息+换行-->
+             </pattern>
+        </layout>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="consoleLog"/>
+    </root>
+
+</configuration>

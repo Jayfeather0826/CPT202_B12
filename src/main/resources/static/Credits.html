@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Steps transform</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/function.css">
+        <script src="./jquery-3.5.1.min.js"></script>
+    </head>   
+
+
+    <body>     
+        <div class="box">
+            <div class="form-wrapper">
+            <div class="content">
+            <h1>Credits information</h1></br>         
+            <h2>The credits you want to transform</h2>
+                <div class="input-wrapper">
+                <strong>amount of credits</strong>
+                <input type="number" style="width:90px;height:30px;" name="mysteps" id="steps"/></br>
+                </br>
+            <h2>The credits you already have</h2>
+                <strong>amount of credits</strong>
+                <input type="number" style="width:90px;height:30px;" name="mycredits" id="credits" readonly="readonly"/></br>
+                </br>
+            <h2>The money you have gained from transform</h2>
+                <strong>amount of money</strong>
+                <input type="number" style="width:220px;height:30px;" name="mygain" id="gains" readonly="readonly"/></br>
+                </br>
+                <div class="action">
+               <strong> <div class="btn" style="width:140px;height:30px;" onclick="trance()">transform
+
+                </div></strong>
+                    <div class="btn" style="width:120px;height:30px;" onclick="window.open('homepage.html','_self')">backoff</div>
+            </div> 
+            </div>
+       </div>
+    </body>
+</html>
+
+<script>
+    let money=0;
+    $(function (){
+        getUser();
+        $("#steps").change(function (val){
+            let myval=parseInt($("#steps").val());
+            let valdata= myval*(58*1.169694965*Math.pow(10, -7))+parseFloat(money);
+            $("#gains").val(valdata)
+        })
+    })
+
+    function getUser(){
+        let user = localStorage.getItem("userInfo");
+        if (user!=null){
+            user=JSON.parse(user);
+            $("#username").val(user.userName);
+            $("#telephone").val(user.userTel);
+            let data={"userName":user.userName,"userTel":user.userTel}
+            //Query credits
+            $.ajax({
+                url:"/user/getCreaditByUser",
+                type:"POST",
+                data:data,
+                dataType:'json',
+                success:function(res){
+                    //My credits
+                    $("#credits").val(res.creditNumber)
+                }
+            } )
+
+            $.ajax({
+                url:"/user/getUserMoney",
+                type:"POST",
+                data:data,
+                dataType:'json',
+                success:function(res){
+                    //My credits
+                    money=res.moneyNumber
+                    $("#gains").val(res.moneyNumber)
+                }
+            })
+        }
+    }
+
+    function trance(){
+        let user = localStorage.getItem("userInfo");
+        if (user!=null){
+            user=JSON.parse(user);
+            let money= $("#gains").val();
+            let data={"tranceMoney":money,"userTel":user.userTel,"creditNumber":$("#steps").val()}
+            $.ajax({
+                url:"/user/tranceMoney",
+                type:"POST",
+                data:data,
+                dataType:'json',
+                success:function(res){
+                    //My credits
+                    $("#credits").val("");
+                    $("#steps").val("");
+                    $("#gains").val("");
+                    getUser();
+                    alert(res.msg);
+
+                }
+            } )
+        }
+    }
+</script>

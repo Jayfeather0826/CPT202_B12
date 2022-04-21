@@ -1,0 +1,100 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    height: 100%;
+}
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #02250b;
+            font-family: 'Poppins', sans-serif;
+        }
+        .box {
+            position: relative;
+            width: 600px;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: 0;
+        }
+        /* 用box的伪元素添加一个面积比box略大的矩形,并通过改变层叠次序,置于box的下层,达到给box设置边框的效果 */
+        .box::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: rgb(48, 100, 117);
+            z-index: -1;
+        }
+        /* 于上面类似,做一个面积比box略大的矩形,并通过改变层叠次序,置于box的下层,达到给box设置边框的效果 */
+        .box::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: rgb(2, 109, 163);
+            z-index: -2;
+            /* 滤镜属性  给图像设置高斯模糊。"radius"一值设定高斯函数的标准差，或者是屏幕上以多少像素融在一起，所以值越大越模糊；如果没有设定值，则默认是0；这个参数可设置css长度值，但不接受百分比值。 */
+            filter: blur(40px);
+        }
+        .box::before,
+        .box::after {
+            /* linear-gradient() 函数用于创建一个线性渐变的 "图像"。 参数1:用角度值指定渐变的方向（或角度）  12点钟方向为0deg*/
+            background: linear-gradient(235deg, #4d5848, #40ae6a,#16252b, #66d0e0);
+        }
+        .content {
+            padding: 20px;
+            box-sizing: border-box;
+            color:#67dee7;
+ 
+        }
+
+.form-wrapper{
+    width: 450px;
+    display: flex;
+    background-color: linear-gradient(to right,#3e763e,#2b7f50);
+    color: rgb(149, 14, 34);
+    border-radius: 2px;
+    padding: 2px;
+}
+
+.form-wrapper .input-wrapper input {
+    background-color: rgb(10, 93, 96);
+    border: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: rgb(227, 197, 228);
+    outline: none;
+} 
+
+
+.form-wrapper .action .btn {
+    width: 60%;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border: 2px solid #305964;
+    text-align: center;
+    line-height: 35px;
+    border-radius: 90px;
+    cursor: pointer;
+    transition: .2s;
+    color: #abdfeb;
+}
+
+.form-wrapper .action .btn:hover{
+    background-color: #17404a;
+}
